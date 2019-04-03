@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package go.micro.srv.todo.list.micro;
+
+// import "google/protobuf/timestamp.proto";
+
+service TodoService {
+	rpc Create(CreateRequest) returns (CreateResponse) {}
+	rpc Get(GetRequest) returns (GetResponse) {}
+	rpc GetAll(GetAllRequest) returns (GetAllResponse) {}
+	rpc Update(UpdateRequest) returns (UpdateResponse) {}
+	rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+	rpc Hello(Message) returns (Message) {}
+}
+
+message Todo {
+	int32 id = 1;
+	string title = 2;
+	string description = 3;
+	bool completed = 4;
+	// google.protobuf.Timestamp reminder = 5;
+}
+
+// Request data to create a todo
+message CreateRequest {
+	Todo todo = 1;
+}
+
+// Contains data of the created todo
+message CreateResponse {
+	int32 id = 1;
+}
+
+// Request data to get a todo
+message GetRequest {
+	int32 id = 1;
+}
+
+// Contains data of a specific todo by id
+message GetResponse {
+	Todo todo = 1;
+}
+
+// Request data of all todos
+message GetAllRequest {
+}
+
+// Contains data of all todos
+message GetAllResponse {
+	repeated Todo todos = 1;
+}
+
+// Request data to update a todo 
+message UpdateRequest {
+	Todo todo = 1;
+}
+
+// Contains data of the updated todo
+message UpdateResponse {
+	int32 updated = 1; // number of updated todos (= 1 => in case of succesfull update)
+}
+
+// Request data to delete a todo
+message DeleteRequest {
+	int32 id = 1;
+}
+
+// Contains data of the deleted todo
+message DeleteResponse {
+	int32 deleted = 1; // number of deleted todos (=1 => in case of succesfull delete)
+}
+
+message Message {
+	string msg = 1;
+}
